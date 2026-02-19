@@ -1,0 +1,26 @@
+{
+  "name": "ai-for-grandmas",
+  "version": "1.0.0",
+  "description": "Daily AI news cards for creative professionals 🧓🍪",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dexterpittampally/ai-for-grandmas.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/dexterpittampally/ai-for-grandmas/issues"
+  },
+  "homepage": "https://github.com/dexterpittampally/ai-for-grandmas#readme",
+  "dependencies": {
+    "@capacitor/cli": "^8.1.0",
+    "@capacitor/core": "^8.1.0",
+    "@capacitor/ios": "^8.1.0"
+  }
+}

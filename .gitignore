@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Capacitor native projects (generated)
+ios/App/Pods/
+ios/App/App/public/
+android/app/src/main/assets/public/
+
+# Build artifacts
+.DS_Store
+*.log
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/

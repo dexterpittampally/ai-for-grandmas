@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#f4f2ed">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="AI for Grandmas">
+  <meta name="description" content="Your daily AI news in 5 minutes. Swipe through today's top stories, tools, and tips — explained by a grandma who actually gets it.">
+
+  <title>AI for Grandmas</title>
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+
+  <!-- Swiper.js CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+  <!-- App styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Loading screen -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-emoji">🧓</div>
+    <div class="loading-text">Brewing today's stories...</div>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="progress-bar-container">
+    <div class="progress-bar-fill" id="progressBar"></div>
+  </div>
+
+  <!-- Top bar -->
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <span class="app-logo">🧓</span>
+      <span class="app-title">AI for Grandmas</span>
+    </div>
+    <div class="streak-badge hidden" id="streakBadge">
+      <span>🔥</span>
+      <span id="streakCount">0</span>
+    </div>
+  </div>
+
+  <!-- Swiper -->
+  <div class="swiper" id="cardSwiper">
+    <div class="swiper-wrapper" id="cardWrapper">
+      <!-- Cards injected by JS -->
+    </div>
+  </div>
+
+  <!-- Card counter -->
+  <div class="card-counter" id="cardCounter">1 / 7</div>
+
+  <!-- Swipe hint (first visit) -->
+  <div class="swipe-hint" id="swipeHint">
+    <span class="swipe-hint-arrow">&#8593;</span>
+    <span class="swipe-hint-text">Swipe up for next</span>
+  </div>
+
+  <!-- Install banner -->
+  <div class="install-banner" id="installBanner">
+    <div class="install-banner-text"><strong>Add to Home Screen</strong> for the full experience</div>
+    <button class="install-btn" id="installBtn">Install</button>
+    <button class="install-dismiss" id="installDismiss">&times;</button>
+  </div>
+
+  <!-- Swiper.js -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <!-- App -->
+  <script src="art.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>

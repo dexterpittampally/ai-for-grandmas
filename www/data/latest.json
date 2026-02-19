@@ -1,0 +1,73 @@
+{
+  "date": "2026-02-19",
+  "generated_at": "2026-02-19T04:27:41.696134+00:00",
+  "card_count": 6,
+  "cards": [
+    {
+      "id": "holy-shit-001",
+      "type": "holy_shit",
+      "emoji": "🔥",
+      "label": "HOLY SHIT",
+      "title": "UNESCO Confirms AI Is Shrinking Artist Paychecks",
+      "body": "UNESCO released hard data confirming what working artists already knew: AI is eating into incomes right now. Their report shows steep declines across music, visual arts, and writing as cheap AI alternatives flood the market. This isn't speculative future stuff—it's today's rent checks getting smaller. For creative professionals, this is the economic reality behind all the tech hype, and it demands attention.",
+      "source_url": "https://news.un.org/en/story/2026/02/1166989",
+      "source_name": "UN News",
+      "image_url": "https://image.pollinations.ai/prompt/UNESCO%20Confirms%20AI%20Is%20Shrinking%20Artist%20Paychecks%2C%20dramatic%20bold%20composition%2C%20glowing%20light%2C%20editorial%20illustration%2C%20no%20text%20no%20words%20no%20letters%20no%20typography%2C%20wide%20aspect%20ratio%2C%20digital%20art?width=800&height=400&seed=27040&nologo=true&model=flux"
+    },
+    {
+      "id": "quick-bite-001",
+      "type": "quick_bite",
+      "emoji": "⚡",
+      "label": "QUICK BITE",
+      "title": "Sony Draws the Line on AI Video Theft",
+      "body": "Sony Pictures joined major studios protesting Seedance 2.0, a Chinese AI video tool accused of training on copyrighted films without permission. The fight is about whether AI companies can legally scrape professional work to build their products. For video editors and filmmakers, this lawsuit helps determine who owns the value of your craft.",
+      "source_url": "https://variety.com/2026/film/news/sony-seedance-protest-1236666951/",
+      "source_name": "Variety",
+      "image_url": "https://image.pollinations.ai/prompt/Sony%20Draws%20the%20Line%20on%20AI%20Video%20Theft%2C%20clean%20minimal%20sketch%2C%20soft%20pastel%20tones%2C%20editorial%20spot%20illustration%2C%20no%20text%20no%20words%20no%20letters%20no%20typography%2C%20wide%20aspect%20ratio%2C%20digital%20art?width=800&height=400&seed=96137&nologo=true&model=flux"
+    },
+    {
+      "id": "tool-drop-001",
+      "type": "tool_drop",
+      "emoji": "🔧",
+      "label": "TOOL DROP",
+      "title": "Beatviz Generates Videos From Your Audio",
+      "body": "Beatviz and the new crop of AI music video generators can turn your audio track into matching visuals in minutes, not days. Upload your song, pick a visual style, and get back footage that actually pulses with the beat. Try this: Use it to create rough-cut visuals for your next music pitch—gives directors something concrete to react to without expensive pre-production meetings.",
+      "source_url": "https://illustratemagazine.com/beatviz-and-the-rise-of-the-ai-music-video-generator-how-artists-will-visualize-sound-in-2026/",
+      "source_name": "Illustrate Magazine",
+      "image_url": "https://image.pollinations.ai/prompt/Beatviz%20Generates%20Videos%20From%20Your%20Audio%2C%20technical%20blueprint%20style%2C%20isometric%2C%20tool%20diagram%20illustration%2C%20no%20text%20no%20words%20no%20letters%20no%20typography%2C%20wide%20aspect%20ratio%2C%20digital%20art?width=800&height=400&seed=75092&nologo=true&model=flux"
+    },
+    {
+      "id": "quick-bite-002",
+      "type": "quick_bite",
+      "emoji": "⚡",
+      "label": "QUICK BITE",
+      "title": "The Best AI Music Tools for Quick Demos",
+      "body": "New rankings of AI music tools show Suno, Udio, and Soundraw leading for real-world creators who need quick demos. These won't replace your studio engineer, but they'll get a melody from your head to your phone in five minutes. Think of them as the digital equivalent of a scratch pad on your coffee table.",
+      "source_url": "https://managementworksmedia.com/the-5-best-ai-music-generators-to-recommend-in-2026-ranked-for-real-world-creators/",
+      "source_name": "Management Works Media",
+      "image_url": "https://image.pollinations.ai/prompt/The%20Best%20AI%20Music%20Tools%20for%20Quick%20Demos%2C%20clean%20minimal%20sketch%2C%20soft%20pastel%20tones%2C%20editorial%20spot%20illustration%2C%20no%20text%20no%20words%20no%20letters%20no%20typography%2C%20wide%20aspect%20ratio%2C%20digital%20art?width=800&height=400&seed=26045&nologo=true&model=flux"
+    },
+    {
+      "id": "bs-detector-001",
+      "type": "bs_detector",
+      "emoji": "💩",
+      "label": "BS DETECTOR",
+      "title": "No, AI Isn't 'Destroying All Creative Jobs'",
+      "body": "Headlines this week will scream that AI is destroying every creative job. Honey, my hairdresser still has a line out the door, and no algorithm can fix a burst pipe at 2 AM. Some gigs will shift, others will disappear, and new ones will emerge—just like when photography didn't kill painting. The truth is messier than the panic.",
+      "source_url": null,
+      "source_name": null,
+      "image_url": "https://image.pollinations.ai/prompt/No%2C%20AI%20Isn%27t%20%27Destroying%20All%20Creative%20Jobs%27%2C%20sardonic%20editorial%20cartoon%2C%20muted%20tones%2C%20newspaper%20illustration%2C%20no%20text%20no%20words%20no%20letters%20no%20typography%2C%20wide%20aspect%20ratio%2C%20digital%20art?width=800&height=400&seed=81411&nologo=true&model=flux"
+    },
+    {
+      "id": "cookie-001",
+      "type": "cookie",
+      "emoji": "🍪",
+      "label": "COOKIE",
+      "title": "Grandma's Closing Thought",
+      "body": "The best artists I've known never waited for permission to use their tools. Pick one AI toy, play until it breaks, then get back to making the thing only you can make.",
+      "source_url": null,
+      "source_name": null,
+      "image_url": "https://image.pollinations.ai/prompt/Grandma%27s%20Closing%20Thought%2C%20warm%20cozy%20kitchen%20illustration%2C%20golden%20light%2C%20comfort%2C%20grandma%20vibes%2C%20no%20text%20no%20words%20no%20letters%20no%20typography%2C%20wide%20aspect%20ratio%2C%20digital%20art?width=800&height=400&seed=4109&nologo=true&model=flux"
+    }
+  ]
+}
