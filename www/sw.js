@@ -7,16 +7,16 @@
  * - CDN assets: cache-first
  */
 
-const CACHE_NAME = 'afg-v2';
+const CACHE_NAME = 'afg-v3';
 const APP_SHELL = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/app.js',
-  '/art.js',
-  '/manifest.json',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png'
+  './',
+  './index.html',
+  './style.css',
+  './app.js',
+  './art.js',
+  './manifest.json',
+  './icons/icon-192.png',
+  './icons/icon-512.png'
 ];
 
 const CDN_ASSETS = [

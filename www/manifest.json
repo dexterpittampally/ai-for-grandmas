@@ -2,7 +2,7 @@
   "name": "AI for Grandmas",
   "short_name": "AI Grandma",
   "description": "Your daily AI news in 5 minutes. Swipe through top stories, tools, and tips explained by a grandma who actually gets it.",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#f4f2ed",

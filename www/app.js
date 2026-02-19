@@ -302,56 +302,60 @@
 
   // ── Init ──
   async function init() {
-    // Update streak
-    const streak = updateStreak();
-    showStreak(streak);
-    checkFirstVisit();
+    try {
+      // Update streak
+      const streak = updateStreak();
+      showStreak(streak);
+      checkFirstVisit();
 
-    // Load cards
-    const cards = await loadCards();
-    totalCards = cards.length;
+      // Load cards
+      const cards = await loadCards();
+      totalCards = cards.length;
 
-    // Render cards
-    let html = '';
-    cards.forEach(card => {
-      html += buildCardSlide(card);
-    });
-    html += buildEndCard(streak);
-    cardWrapper.innerHTML = html;
+      // Render cards
+      let html = '';
+      cards.forEach(card => {
+        html += buildCardSlide(card);
+      });
+      html += buildEndCard(streak);
+      cardWrapper.innerHTML = html;
 
-    // Init Swiper
-    swiper = new Swiper('#cardSwiper', {
-      direction: 'vertical',
-      effect: 'creative',
-      creativeEffect: {
-        prev: {
-          translate: [0, '-120%', -100],
-          opacity: 0,
+      // Init Swiper
+      swiper = new Swiper('#cardSwiper', {
+        direction: 'vertical',
+        effect: 'creative',
+        creativeEffect: {
+          prev: {
+            translate: [0, '-120%', -100],
+            opacity: 0,
+          },
+          next: {
+            translate: [0, '100%', 0],
+            opacity: 1,
+          },
         },
-        next: {
-          translate: [0, '100%', 0],
-          opacity: 1,
-        },
-      },
-      speed: 350,
-      resistanceRatio: 0.6,
-      touchRatio: 1.2,
-      on: {
-        slideChange: function () {
-          updateProgress(this.activeIndex);
+        speed: 350,
+        resistanceRatio: 0.6,
+        touchRatio: 1.2,
+        on: {
+          slideChange: function () {
+            updateProgress(this.activeIndex);
 
-          // Hide swipe hint after first swipe
-          if (this.activeIndex > 0) {
-            swipeHint.classList.add('hidden');
+            // Hide swipe hint after first swipe
+            if (this.activeIndex > 0) {
+              swipeHint.classList.add('hidden');
+            }
           }
         }
-      }
-    });
+      });
 
-    // Initial progress
-    updateProgress(0);
+      // Initial progress
+      updateProgress(0);
+    } catch (err) {
+      console.error('Init error:', err);
+    }
 
-    // Hide loading
+    // Always hide loading — even if something above fails
     setTimeout(() => {
       loadingScreen.classList.add('hidden');
     }, 400);
