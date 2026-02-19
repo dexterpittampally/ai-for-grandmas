@@ -90,11 +90,11 @@
     }
 
     savedList.innerHTML = saved.map(card => `
-      <div class="saved-card" style="border-left-color: var(--type-${card.type.replace('_', '-')}, var(--accent))">
+      <div class="saved-card">
         <div class="saved-card-tag">${card.emoji} ${card.label}</div>
         <div class="saved-card-title">${escapeHtml(card.title)}</div>
         <div class="saved-card-body">${escapeHtml(card.body)}</div>
-        ${card.source_url ? `<a href="${escapeHtml(card.source_url)}" target="_blank" rel="noopener" style="display:block;margin-top:8px;font-size:12px;color:var(--accent);text-decoration:none;">${escapeHtml(card.source_name || 'Read more')} &rarr;</a>` : ''}
+        ${card.source_url ? `<a href="${escapeHtml(card.source_url)}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;margin-top:10px;font-size:13px;font-weight:700;color:#fff;background:var(--accent);text-decoration:none;padding:8px 16px;border-radius:20px;">Read more &rarr;</a>` : ''}
       </div>
     `).join('');
   }
@@ -185,11 +185,12 @@
       ? '<img src="' + escapeHtml(card.image_url) + '" alt="" class="card-art-image" loading="lazy" onerror="this.parentElement.innerHTML=CardArt.generate(\'\',\'' + card.type + '\')">'
       : CardArt.generate(card.title || '', card.type || 'quick_bite');
 
-    const sourceHtml = card.source_url
-      ? '<a class="card-source" href="' + escapeHtml(card.source_url) + '" target="_blank" rel="noopener">' + escapeHtml(card.source_name || 'Read more') + '</a>'
-      : '<span></span>';
+    // CTA: "Read More →" button linking to source, or muted source label
+    const ctaHtml = card.source_url
+      ? '<a class="card-cta" href="' + escapeHtml(card.source_url) + '" target="_blank" rel="noopener">Read more</a>'
+      : '';
 
-    const shareBtn = '<button class="card-share-btn" onclick="window.shareCard(' + index + ')" aria-label="Share this card">&#9998;</button>';
+    const shareBtn = '<button class="card-share-btn" onclick="window.shareCard(' + index + ')" aria-label="Share this card">&#x1F4E4;</button>';
 
     return '<div class="swiper-slide">' +
       '<div class="card" data-type="' + card.type + '" data-index="' + index + '">' +
@@ -198,7 +199,7 @@
           '<span class="card-tag" data-type="' + card.type + '">' + card.emoji + ' ' + card.label + '</span>' +
           '<h2 class="card-title">' + escapeHtml(card.title) + '</h2>' +
           '<p class="card-body">' + escapeHtml(card.body) + '</p>' +
-          '<div class="card-actions">' + sourceHtml + shareBtn + '</div>' +
+          '<div class="card-actions">' + ctaHtml + shareBtn + '</div>' +
         '</div>' +
       '</div>' +
     '</div>';
@@ -287,39 +288,43 @@
     lastTap = now;
   }
 
-  // ── Share individual card ──
+  // ── Share individual card (as branded image) ──
   window.shareCard = async function (index) {
     if (index < 0 || index >= allCards.length) return;
     var card = allCards[index];
-    var text = card.emoji + ' ' + card.title + '\n\n' + card.body;
-    if (card.source_url) {
-      text += '\n\n' + card.source_url;
-    }
-    text += '\n\n— AI for Grandmas';
+    var btn = document.querySelector('.card[data-index="' + index + '"] .card-share-btn');
 
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: card.title,
-          text: text,
-          url: card.source_url || window.location.href
-        });
-      } catch (e) {
-        // User cancelled
-      }
-    } else {
-      // Fallback: copy to clipboard
-      try {
-        await navigator.clipboard.writeText(text);
-        // Brief visual feedback
-        var btn = document.querySelector('.card[data-index="' + index + '"] .card-share-btn');
-        if (btn) {
-          btn.textContent = '\u2713';
-          setTimeout(function () { btn.innerHTML = '&#9998;'; }, 1500);
+    // Show generating state
+    if (btn) {
+      btn.textContent = '...';
+      btn.disabled = true;
+    }
+
+    try {
+      // Try sharing as an image first
+      if (typeof CardImage !== 'undefined') {
+        await CardImage.shareCardImage(card);
+      } else {
+        // Fallback: text share
+        var text = card.emoji + ' ' + card.title + '\n\n' + card.body;
+        if (card.source_url) text += '\n\n' + card.source_url;
+        text += '\n\n— AI for Grandmas';
+
+        if (navigator.share) {
+          await navigator.share({ title: card.title, text: text, url: card.source_url || window.location.href });
+        } else {
+          await navigator.clipboard.writeText(text);
         }
-      } catch (e) {
-        // Clipboard not available
       }
+    } catch (e) {
+      // User cancelled or error — silently handle
+      console.log('Share error:', e);
+    }
+
+    // Reset button
+    if (btn) {
+      btn.innerHTML = '&#x1F4E4;';
+      btn.disabled = false;
     }
   };
 
@@ -441,10 +446,16 @@
       checkFirstVisit();
       updateSavedUI();
 
+      // Request notification permission (on 3rd+ visit)
+      requestNotificationPermission();
+
       // Load cards
       var cards = await loadCards();
       allCards = cards;
       totalCards = cards.length;
+
+      // Notify about new cards
+      checkForNewCards(cards);
 
       // Render cards
       var html = '';
@@ -508,11 +519,73 @@
     }, 400);
   }
 
+  // ── Notification Permission ──
+  async function requestNotificationPermission() {
+    if (!('Notification' in window)) return;
+    if (Notification.permission === 'granted') return;
+    if (Notification.permission === 'denied') return;
+
+    // Ask on 3rd visit — not too eager
+    var visits = getVisitCount();
+    if (visits >= 3) {
+      try {
+        await Notification.requestPermission();
+      } catch (e) {
+        console.log('Notification permission error:', e);
+      }
+    }
+  }
+
+  // ── Check for new cards & notify ──
+  function checkForNewCards(cards) {
+    if (!('Notification' in window) || Notification.permission !== 'granted') return;
+
+    var data = getData();
+    var today = new Date().toISOString().slice(0, 10);
+
+    // Already notified today
+    if (data.lastNotifiedDate === today) return;
+
+    // First card title as preview
+    if (cards && cards.length > 0) {
+      var firstCard = cards[0];
+      try {
+        new Notification('Fresh cards from Grandma 🧓', {
+          body: firstCard.emoji + ' ' + firstCard.title,
+          icon: 'icons/icon-192.png',
+          badge: 'icons/icon-192.png',
+          tag: 'afg-daily-' + today,
+          renotify: false
+        });
+      } catch (e) {
+        // Some browsers don't support Notification constructor from page context
+        if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+          navigator.serviceWorker.controller.postMessage({
+            type: 'SHOW_NOTIFICATION',
+            title: 'Fresh cards from Grandma 🧓',
+            body: firstCard.emoji + ' ' + firstCard.title,
+            tag: 'afg-daily-' + today
+          });
+        }
+      }
+      setData({ lastNotifiedDate: today });
+    }
+  }
+
   // ── Register Service Worker (web only) ──
   if ('serviceWorker' in navigator && !window.Capacitor) {
     window.addEventListener('load', function () {
       navigator.serviceWorker.register('sw.js')
-        .then(function (reg) { console.log('SW registered:', reg.scope); })
+        .then(function (reg) {
+          console.log('SW registered:', reg.scope);
+
+          // Schedule periodic background sync if supported
+          if ('periodicSync' in reg) {
+            reg.periodicSync.register('check-new-cards', {
+              minInterval: 12 * 60 * 60 * 1000 // 12 hours
+            }).catch(function (e) { console.log('Periodic sync not available:', e); });
+          }
+        })
         .catch(function (err) { console.log('SW registration failed:', err); });
     });
   }

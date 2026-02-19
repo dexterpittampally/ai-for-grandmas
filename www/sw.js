@@ -7,13 +7,14 @@
  * - CDN assets: cache-first
  */
 
-const CACHE_NAME = 'afg-v4';
+const CACHE_NAME = 'afg-v5';
 const APP_SHELL = [
   './',
   './index.html',
   './style.css',
   './app.js',
   './art.js',
+  './card-image.js',
   './manifest.json',
   './icons/icon-192.png',
   './icons/icon-512.png'
@@ -87,6 +88,57 @@ async function cacheFirst(request) {
     return new Response('Offline', { status: 503 });
   }
 }
+
+// Message handler — show notifications from page context
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SHOW_NOTIFICATION') {
+    self.registration.showNotification(event.data.title, {
+      body: event.data.body,
+      icon: './icons/icon-192.png',
+      badge: './icons/icon-192.png',
+      tag: event.data.tag || 'afg-daily',
+      renotify: false
+    });
+  }
+});
+
+// Notification click — open the app
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+      for (const client of clientList) {
+        if (client.url.includes('ai-for-grandmas') && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      return clients.openWindow('./');
+    })
+  );
+});
+
+// Periodic background sync — check for new cards
+self.addEventListener('periodicsync', (event) => {
+  if (event.tag === 'check-new-cards') {
+    event.waitUntil(
+      fetch('./data/latest.json', { cache: 'no-cache' })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.cards && data.cards.length > 0) {
+            const card = data.cards[0];
+            return self.registration.showNotification('Fresh cards from Grandma 🧓', {
+              body: card.emoji + ' ' + card.title,
+              icon: './icons/icon-192.png',
+              badge: './icons/icon-192.png',
+              tag: 'afg-daily-' + new Date().toISOString().slice(0, 10),
+              renotify: false
+            });
+          }
+        })
+        .catch(() => {/* offline, skip */})
+    );
+  }
+});
 
 async function networkFirst(request) {
   try {

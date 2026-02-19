@@ -231,20 +231,12 @@ html, body {
   flex-direction: column;
   max-height: calc(100vh - 140px);
   position: relative;
-  border-left: 4px solid transparent;
+  border: 1px solid rgba(0,0,0,0.06);
 }
-
-/* Card type left border accents */
-.card[data-type="holy_shit"]   { border-left-color: var(--type-holy-shit); }
-.card[data-type="quick_bite"]  { border-left-color: var(--type-quick-bite); }
-.card[data-type="tool_drop"]   { border-left-color: var(--type-tool-drop); }
-.card[data-type="try_this"]    { border-left-color: var(--type-try-this); }
-.card[data-type="bs_detector"] { border-left-color: var(--type-bs-detector); }
-.card[data-type="cookie"]      { border-left-color: var(--type-cookie); }
 
 .card-art {
   width: 100%;
-  height: 200px;
+  height: 160px;
   overflow: hidden;
   flex-shrink: 0;
 }
@@ -308,35 +300,57 @@ html, body {
   white-space: pre-line;
 }
 
-/* Card actions row (source + share) */
+/* Card actions row (CTA + share) */
 .card-actions {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding-top: 16px;
   border-top: 1px solid rgba(0,0,0,0.06);
+  gap: 10px;
 }
 
+/* Read More CTA button */
+.card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  text-decoration: none;
+  padding: 10px 20px;
+  min-height: 44px;
+  border-radius: 24px;
+  transition: transform 0.15s, opacity 0.15s;
+  font-family: var(--font-sans);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.card-cta:hover,
+.card-cta:active {
+  transform: scale(0.97);
+  opacity: 0.9;
+}
+
+.card-cta::after {
+  content: ' \2192';
+}
+
+/* Source label (when no CTA link) */
 .card-source {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--accent);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
   text-decoration: none;
   padding: 10px 0;
   min-height: 44px;
   transition: opacity 0.2s;
-}
-
-.card-source:hover,
-.card-source:active {
-  opacity: 0.7;
-}
-
-.card-source::after {
-  content: ' \2192';
 }
 
 .card-share-btn {
@@ -363,7 +377,6 @@ html, body {
 /* ── Cookie Card (special smaller layout) ── */
 .card[data-type="cookie"] {
   background: linear-gradient(135deg, #fef7ed, #fef0e4);
-  border-left-color: var(--type-cookie);
 }
 
 .card[data-type="cookie"] .card-art {
@@ -540,10 +553,10 @@ html, body {
 
 .saved-card {
   background: var(--bg-card);
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 16px 20px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  border-left: 4px solid var(--accent);
+  border: 1px solid rgba(0,0,0,0.06);
 }
 
 .saved-card-tag {
@@ -603,7 +616,6 @@ html, body {
 /* ── Welcome Card (onboarding) ── */
 .card.card-welcome {
   background: linear-gradient(135deg, var(--bg), #fef7ed);
-  border-left: 4px solid var(--accent);
 }
 
 .card-welcome .welcome-emoji {
@@ -690,7 +702,7 @@ html, body {
 @media (min-width: 480px) {
   .swiper { padding-left: 24px; padding-right: 24px; }
   .card { max-height: 680px; }
-  .card-art { height: 220px; }
+  .card-art { height: 180px; }
   .card-content { padding: 24px 28px 28px; }
   .card-title { font-size: 22px; }
 }
