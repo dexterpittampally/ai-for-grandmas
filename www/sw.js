@@ -7,7 +7,7 @@
  * - CDN assets: cache-first
  */
 
-const CACHE_NAME = 'afg-v3';
+const CACHE_NAME = 'afg-v4';
 const APP_SHELL = [
   './',
   './index.html',

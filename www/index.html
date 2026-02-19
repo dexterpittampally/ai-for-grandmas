@@ -29,22 +29,26 @@
     <div class="loading-text">Brewing today's stories...</div>
   </div>
 
-  <!-- Progress bar -->
-  <div class="progress-bar-container">
-    <div class="progress-bar-fill" id="progressBar"></div>
-  </div>
-
   <!-- Top bar -->
   <div class="top-bar">
     <div class="top-bar-left">
       <span class="app-logo">🧓</span>
       <span class="app-title">AI for Grandmas</span>
     </div>
-    <div class="streak-badge hidden" id="streakBadge">
-      <span>🔥</span>
-      <span id="streakCount">0</span>
+    <div class="top-bar-right">
+      <button class="saved-btn hidden" id="savedBtn" aria-label="Saved cards">
+        <span class="saved-icon">&#9829;</span>
+        <span class="saved-count" id="savedCount">0</span>
+      </button>
+      <div class="streak-badge hidden" id="streakBadge">
+        <span>&#128293;</span>
+        <span id="streakCount">0</span>
+      </div>
     </div>
   </div>
+
+  <!-- Dot indicators -->
+  <div class="dot-indicators" id="dotIndicators"></div>
 
   <!-- Swiper -->
   <div class="swiper" id="cardSwiper">
@@ -53,8 +57,21 @@
     </div>
   </div>
 
-  <!-- Card counter -->
-  <div class="card-counter" id="cardCounter">1 / 7</div>
+  <!-- Saved cards overlay -->
+  <div class="saved-overlay hidden" id="savedOverlay">
+    <div class="saved-header">
+      <h2>Saved Cards</h2>
+      <button class="saved-close" id="savedClose">&times;</button>
+    </div>
+    <div class="saved-list" id="savedList">
+      <p class="saved-empty">No saved cards yet. Double-tap any card to save it.</p>
+    </div>
+  </div>
+
+  <!-- Offline banner -->
+  <div class="offline-banner hidden" id="offlineBanner">
+    Showing cached cards &mdash; connect to refresh
+  </div>
 
   <!-- Swipe hint (first visit) -->
   <div class="swipe-hint" id="swipeHint">
@@ -68,6 +85,9 @@
     <button class="install-btn" id="installBtn">Install</button>
     <button class="install-dismiss" id="installDismiss">&times;</button>
   </div>
+
+  <!-- Heart animation overlay -->
+  <div class="heart-burst hidden" id="heartBurst">&#9829;</div>
 
   <!-- Swiper.js -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
